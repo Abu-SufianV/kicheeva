@@ -10,7 +10,8 @@ def formatted_print_data(product_data: list[tuple]) -> None:
 
     :param product_data: Список товаров
     """
-    df = pd.DataFrame(data=product_data, columns=['ID', 'Название', 'Тип товара', 'Цена', 'Кол-во'])
+    df = pd.DataFrame(data=product_data, columns=[
+                      'ID', 'Название', 'Тип товара', 'Цена', 'Кол-во'])
     res = df.to_string(index=False)
     print(res)
 
@@ -47,15 +48,16 @@ def find_product(query: str):
     elif 'всех' in split_query:
         data = list_all_products()
         formatted_print_data(data)
-    elif 'типу' in split_query:
+    elif 'типом' in split_query:
         data = find_product_by_type(split_query[-1].capitalize())
         formatted_print_data(data)
-    elif 'цена' or 'ценой' in split_query:
+    elif 'цена' in split_query:
         sign = signs[split_query[-2]]
         price = split_query[-1].replace('.', '')
 
         data = find_product_by_price(price, sign)
         formatted_print_data(data)
+
 
 if __name__ == '__main__':
     print('Добрый день! Я голосовой помощник, помогу Вам найти товар в БД :)')
@@ -67,7 +69,6 @@ if __name__ == '__main__':
                   'Проверьте микрофон'
                   '\n\nP. S. Если  Вы закончили искать товары, то просто скажите "Стоп" и программа отключится')
             continue
-
 
         try:
             if text == 'стоп':
